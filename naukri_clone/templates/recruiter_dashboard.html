@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}Recruiter Dashboard - Naukri Clone{% endblock %}
+
+{% block content %}
+<div class="recruiter-dashboard">
+    <div class="welcome-section">
+        <div class="welcome-content">
+            <h1>Welcome back, {{ profile.recruiter_name if profile else 'Recruiter' }}!</h1>
+            <p>Manage your jobs and track applications</p>
+        </div>
+        <a href="{{ url_for('post_job') }}" class="btn-post-job">
+            <i class="fas fa-plus"></i> Post New Job
+        </a>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+            <div class="stat-details">
+                <h3>{{ jobs|length if jobs else 0 }}</h3>
+                <p>Active Jobs</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-details">
+                <h3>0</h3>
+                <p>Total Applications</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-eye"></i></div>
+            <div class="stat-details">
+                <h3>0</h3>
+                <p>Profile Views</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="posted-jobs-section">
+        <div class="section-header">
+            <h2>Your Posted Jobs</h2>
+        </div>
+
+        {% if jobs and jobs|length > 0 %}
+        <div class="jobs-table-container">
+            <table class="jobs-table">
+                <thead>
+                    <tr>
+                        <th>Job Title</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for job in jobs %}
+                    <tr>
+                        <td>{{ job.title }}</td>
+                        <td>{{ job.location }}</td>
+                        <td><span class="status-badge active">Active</span></td>
+                        <td>
+                            <a href="#" class="action-btn"><i class="fas fa-eye"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-jobs-card">
+            <i class="fas fa-briefcase"></i>
+            <h3>No jobs posted yet</h3>
+            <p>Start by posting your first job opening</p>
+            <a href="{{ url_for('post_job') }}" class="btn-post-first">Post Your First Job</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .recruiter-dashboard {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    .welcome-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .welcome-content h1 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .welcome-content p {
+        color: #666;
+    }
+
+    .btn-post-job {
+        padding: 12px 25px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stat-icon i {
+        font-size: 28px;
+        color: white;
+    }
+
+    .stat-details h3 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .stat-details p {
+        color: #666;
+        font-size: 14px;
+    }
+
+    .posted-jobs-section {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-header {
+        margin-bottom: 20px;
+    }
+
+    .section-header h2 {
+        font-size: 22px;
+        color: #333;
+    }
+
+    .jobs-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .jobs-table th {
+        text-align: left;
+        padding: 15px 10px;
+        color: #666;
+        font-weight: 600;
+        border-bottom: 2px solid #e0e0e0;
+    }
+
+    .jobs-table td {
+        padding: 15px 10px;
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    .status-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-badge.active {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .action-btn {
+        padding: 5px 10px;
+        color: #667eea;
+        text-decoration: none;
+    }
+
+    .no-jobs-card {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .no-jobs-card i {
+        font-size: 60px;
+        color: #ccc;
+        margin-bottom: 20px;
+    }
+
+    .no-jobs-card h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .no-jobs-card p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .btn-post-first {
+        display: inline-block;
+        padding: 12px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+</style>
+{% endblock %}

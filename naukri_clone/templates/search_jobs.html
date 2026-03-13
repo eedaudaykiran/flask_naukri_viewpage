@@ -1,0 +1,534 @@
+{% extends "base.html" %}
+
+{% block title %}Search Jobs - Naukri Clone{% endblock %}
+
+{% block content %}
+<div class="search-jobs-container">
+    <!-- Search Header -->
+    <div class="search-header">
+        <h1>Search Jobs</h1>
+        <p>Find your perfect role from thousands of opportunities</p>
+    </div>
+
+    <!-- Advanced Search Form -->
+    <div class="advanced-search-section">
+        <form action="{{ url_for('search_jobs') }}" method="GET" class="advanced-search-form">
+            <div class="search-row">
+                <div class="search-field">
+                    <i class="fas fa-search"></i>
+                    <input type="text" name="keyword" placeholder="Job title, skills or company" value="{{ keyword }}"
+                        class="search-input">
+                </div>
+                <div class="search-field">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" name="location" placeholder="Location" value="{{ location }}"
+                        class="search-input">
+                </div>
+                <button type="submit" class="search-submit-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+
+            <div class="filter-options">
+                <div class="filter-group">
+                    <label>Experience</label>
+                    <select name="experience" class="filter-select">
+                        <option value="">Any Experience</option>
+                        <option value="fresher">Fresher</option>
+                        <option value="1-3">1-3 years</option>
+                        <option value="3-5">3-5 years</option>
+                        <option value="5-8">5-8 years</option>
+                        <option value="8+">8+ years</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Salary Range</label>
+                    <select name="salary" class="filter-select">
+                        <option value="">Any Salary</option>
+                        <option value="0-3">Less than 3 LPA</option>
+                        <option value="3-6">3-6 LPA</option>
+                        <option value="6-10">6-10 LPA</option>
+                        <option value="10-15">10-15 LPA</option>
+                        <option value="15-25">15-25 LPA</option>
+                        <option value="25+">25+ LPA</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Job Type</label>
+                    <select name="job_type" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="full_time">Full Time</option>
+                        <option value="part_time">Part Time</option>
+                        <option value="contract">Contract</option>
+                        <option value="internship">Internship</option>
+                        <option value="remote">Remote</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Sort By</label>
+                    <select name="sort" class="filter-select">
+                        <option value="relevance">Relevance</option>
+                        <option value="newest">Newest First</option>
+                        <option value="salary_high">Salary: High to Low</option>
+                        <option value="salary_low">Salary: Low to High</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button type="submit" class="apply-filters-btn">Apply Filters</button>
+                <a href="{{ url_for('search_jobs') }}" class="clear-filters-link">Clear All Filters</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Search Results -->
+    <div class="search-results-section">
+        <div class="results-header">
+            <h2>
+                {% if jobs %}
+                {{ jobs|length }} Jobs Found
+                {% if keyword or location %}
+                for "{{ keyword }} {{ location }}"
+                {% endif %}
+                {% else %}
+                No Jobs Found
+                {% endif %}
+            </h2>
+            <p>Showing {{ jobs|length }} of {{ total_jobs }} jobs</p>
+        </div>
+
+        {% if jobs %}
+        <div class="search-results-grid">
+            {% for job in jobs %}
+            <div class="search-job-card">
+                <div class="search-job-header">
+                    <h3><a href="{{ url_for('view_job', job_id=job.id) }}">{{ job.title }}</a></h3>
+                    <p class="company-name">{{ job.recruiter.company_name }}</p>
+                </div>
+
+                <div class="search-job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>{{ job.location }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>{{ job.experience_required }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>₹{{ job.salary_min }} - ₹{{ job.salary_max }} LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>{{ job.job_type|replace('_', ' ')|title }}</span>
+                    </div>
+                </div>
+
+                <p class="job-description-preview">
+                    {{ job.description[:150] }}{% if job.description|length > 150 %}...{% endif %}
+                </p>
+
+                <div class="search-job-footer">
+                    <span class="posted-date">
+                        <i class="far fa-clock"></i>
+                        {{ job.created_at.strftime('%d %b, %Y') }}
+                    </span>
+                    <a href="{{ url_for('view_job', job_id=job.id) }}" class="view-details-btn">View Details</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="no-results">
+            <i class="fas fa-search"></i>
+            <h3>No jobs match your search</h3>
+            <p>Try different keywords or filters</p>
+            <div class="suggestions">
+                <h4>Suggestions:</h4>
+                <ul>
+                    <li>Check your spelling</li>
+                    <li>Try more general keywords</li>
+                    <li>Try different location</li>
+                    <li>Remove some filters</li>
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .search-jobs-container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
+
+    /* Search Header */
+    .search-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .search-header h1 {
+        font-size: 36px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .search-header p {
+        color: #666;
+        font-size: 18px;
+    }
+
+    /* Advanced Search Section */
+    .advanced-search-section {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .search-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .search-field {
+        flex: 1;
+        min-width: 250px;
+        position: relative;
+    }
+
+    .search-field i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: #667eea;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .search-submit-btn {
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .filter-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+        padding: 20px 0;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .filter-group label {
+        font-size: 13px;
+        color: #666;
+        font-weight: 500;
+    }
+
+    .filter-select {
+        padding: 10px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 14px;
+        color: #333;
+        background: white;
+        cursor: pointer;
+    }
+
+    .filter-select:focus {
+        border-color: #667eea;
+        outline: none;
+    }
+
+    .filter-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .apply-filters-btn {
+        padding: 12px 25px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .apply-filters-btn:hover {
+        background: #764ba2;
+    }
+
+    .clear-filters-link {
+        color: #666;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .clear-filters-link:hover {
+        color: #ff4444;
+    }
+
+    /* Results Header */
+    .results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .results-header h2 {
+        font-size: 22px;
+        color: #333;
+    }
+
+    .results-header p {
+        color: #666;
+    }
+
+    /* Search Results Grid */
+    .search-results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 20px;
+    }
+
+    .search-job-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        border: 1px solid #f0f0f0;
+    }
+
+    .search-job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+    }
+
+    .search-job-header {
+        margin-bottom: 15px;
+    }
+
+    .search-job-header h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .search-job-header h3 a {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .search-job-header h3 a:hover {
+        color: #667eea;
+    }
+
+    .company-name {
+        color: #667eea;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .search-job-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #666;
+        font-size: 13px;
+    }
+
+    .detail-item i {
+        color: #667eea;
+        width: 16px;
+    }
+
+    .job-description-preview {
+        color: #666;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .search-job-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .posted-date {
+        color: #999;
+        font-size: 12px;
+    }
+
+    .posted-date i {
+        margin-right: 5px;
+    }
+
+    .view-details-btn {
+        padding: 8px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .view-details-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    /* No Results */
+    .no-results {
+        text-align: center;
+        padding: 60px 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .no-results i {
+        font-size: 60px;
+        color: #ccc;
+        margin-bottom: 20px;
+    }
+
+    .no-results h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .no-results p {
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    .suggestions {
+        max-width: 300px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .suggestions h4 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .suggestions ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .suggestions li {
+        color: #666;
+        padding: 5px 0;
+        padding-left: 20px;
+        position: relative;
+    }
+
+    .suggestions li::before {
+        content: '•';
+        color: #667eea;
+        font-size: 20px;
+        position: absolute;
+        left: 0;
+        top: -2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .search-row {
+            flex-direction: column;
+        }
+
+        .search-submit-btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .filter-options {
+            grid-template-columns: 1fr;
+        }
+
+        .filter-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .apply-filters-btn {
+            width: 100%;
+        }
+
+        .search-results-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}

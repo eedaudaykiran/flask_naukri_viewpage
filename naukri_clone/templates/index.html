@@ -1,0 +1,280 @@
+{% extends "base.html" %}
+
+{% block title %}Naukri Clone - India's No.1 Job Portal{% endblock %}
+
+{% block content %}
+<!-- Hero Section with Search -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Find Your Dream Job Today</h1>
+        <p class="hero-subtitle">1000+ jobs waiting for you. Apply now!</p>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <form action="{{ url_for('search_jobs') }}" method="GET" class="search-form">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" name="skills" placeholder="Skills, Companies, Designations" class="search-input">
+                </div>
+                <div class="search-box">
+                    <i class="fas fa-map-marker-alt location-icon"></i>
+                    <input type="text" name="location" placeholder="Location" class="search-input">
+                </div>
+                <button type="submit" class="search-btn">Search Jobs</button>
+            </form>
+        </div>
+
+        <!-- Popular Searches -->
+        <div class="popular-searches">
+            <span class="popular-label">Popular:</span>
+            <a href="#" class="popular-tag">Python Developer</a>
+            <a href="#" class="popular-tag">Data Scientist</a>
+            <a href="#" class="popular-tag">Web Designer</a>
+            <a href="#" class="popular-tag">Digital Marketing</a>
+            <a href="#" class="popular-tag">HR Executive</a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="stats-container">
+        <div class="stat-item">
+            <h3>10,000+</h3>
+            <p>Active Jobs</p>
+        </div>
+        <div class="stat-item">
+            <h3>5,000+</h3>
+            <p>Companies</p>
+        </div>
+        <div class="stat-item">
+            <h3>2 Million+</h3>
+            <p>Job Seekers</p>
+        </div>
+        <div class="stat-item">
+            <h3>50,000+</h3>
+            <p>Placements</p>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Jobs Section -->
+<section class="featured-jobs">
+    <div class="section-header">
+        <h2>Featured Jobs</h2>
+        <p>Handpicked opportunities for you</p>
+    </div>
+
+    <div class="jobs-grid">
+        <!-- Job Card 1 -->
+        <div class="job-card">
+            <div class="company-logo">
+                <img src="{{ url_for('static', filename='images/company1.png') }}" alt="Company Logo">
+            </div>
+            <div class="job-info">
+                <h3>Senior Python Developer</h3>
+                <p class="company-name">Tech Solutions Inc.</p>
+                <div class="job-details">
+                    <span><i class="fas fa-briefcase"></i> 3-5 years</span>
+                    <span><i class="fas fa-rupee-sign"></i> 12-18 LPA</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Bangalore</span>
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Django</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                </div>
+                <a href="#" class="apply-btn">Apply Now</a>
+            </div>
+        </div>
+
+        <!-- Job Card 2 -->
+        <div class="job-card">
+            <div class="company-logo">
+                <img src="{{ url_for('static', filename='images/company2.png') }}" alt="Company Logo">
+            </div>
+            <div class="job-info">
+                <h3>Frontend Developer</h3>
+                <p class="company-name">Digital Innovations</p>
+                <div class="job-details">
+                    <span><i class="fas fa-briefcase"></i> 2-4 years</span>
+                    <span><i class="fas fa-rupee-sign"></i> 8-15 LPA</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Hyderabad</span>
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">React</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">CSS</span>
+                </div>
+                <a href="#" class="apply-btn">Apply Now</a>
+            </div>
+        </div>
+
+        <!-- Job Card 3 -->
+        <div class="job-card">
+            <div class="company-logo">
+                <img src="{{ url_for('static', filename='images/company3.png') }}" alt="Company Logo">
+            </div>
+            <div class="job-info">
+                <h3>Data Scientist</h3>
+                <p class="company-name">Analytics Corp</p>
+                <div class="job-details">
+                    <span><i class="fas fa-briefcase"></i> 4-7 years</span>
+                    <span><i class="fas fa-rupee-sign"></i> 15-25 LPA</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Pune</span>
+                </div>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">SQL</span>
+                </div>
+                <a href="#" class="apply-btn">Apply Now</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="view-all-btn">
+        <a href="{{ url_for('search_jobs') }}" class="view-all-link">View All Jobs →</a>
+    </div>
+</section>
+
+<!-- Job Categories Section -->
+<section class="categories-section">
+    <div class="section-header">
+        <h2>Jobs by Category</h2>
+        <p>Explore jobs in your favorite domain</p>
+    </div>
+
+    <div class="categories-grid">
+        <a href="#" class="category-card">
+            <i class="fas fa-code"></i>
+            <h4>IT & Software</h4>
+            <p>2,345 jobs</p>
+        </a>
+        <a href="#" class="category-card">
+            <i class="fas fa-chart-line"></i>
+            <h4>Sales & Marketing</h4>
+            <p>1,876 jobs</p>
+        </a>
+        <a href="#" class="category-card">
+            <i class="fas fa-hospital-alt"></i>
+            <h4>Healthcare</h4>
+            <p>987 jobs</p>
+        </a>
+        <a href="#" class="category-card">
+            <i class="fas fa-money-bill-wave"></i>
+            <h4>Finance</h4>
+            <p>654 jobs</p>
+        </a>
+        <a href="#" class="category-card">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <h4>Education</h4>
+            <p>543 jobs</p>
+        </a>
+        <a href="#" class="category-card">
+            <i class="fas fa-building"></i>
+            <h4>Construction</h4>
+            <p>432 jobs</p>
+        </a>
+    </div>
+</section>
+
+<!-- Top Companies Section -->
+<section class="companies-section">
+    <div class="section-header">
+        <h2>Top Companies Hiring</h2>
+        <p>Work at India's best companies</p>
+    </div>
+
+    <div class="companies-grid">
+        <div class="company-card">
+            <img src="{{ url_for('static', filename='images/tcs.png') }}" alt="TCS">
+            <h4>TCS</h4>
+            <p>234 jobs</p>
+        </div>
+        <div class="company-card">
+            <img src="{{ url_for('static', filename='images/infosys.png') }}" alt="Infosys">
+            <h4>Infosys</h4>
+            <p>187 jobs</p>
+        </div>
+        <div class="company-card">
+            <img src="{{ url_for('static', filename='images/wipro.png') }}" alt="Wipro">
+            <h4>Wipro</h4>
+            <p>156 jobs</p>
+        </div>
+        <div class="company-card">
+            <img src="{{ url_for('static', filename='images/amazon.png') }}" alt="Amazon">
+            <h4>Amazon</h4>
+            <p>98 jobs</p>
+        </div>
+        <div class="company-card">
+            <img src="{{ url_for('static', filename='images/microsoft.png') }}" alt="Microsoft">
+            <h4>Microsoft</h4>
+            <p>76 jobs</p>
+        </div>
+        <div class="company-card">
+            <img src="{{ url_for('static', filename='images/google.png') }}" alt="Google">
+            <h4>Google</h4>
+            <p>54 jobs</p>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="section-header">
+        <h2>Success Stories</h2>
+        <p>What our users say about us</p>
+    </div>
+
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p>"Got my dream job at Microsoft within 2 weeks of registering on Naukri Clone. Amazing platform!"</p>
+            <div class="user-info">
+                <img src="{{ url_for('static', filename='images/user1.jpg') }}" alt="User">
+                <div>
+                    <h5>Rahul Sharma</h5>
+                    <p>Software Engineer at Microsoft</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p>"The best job portal I've ever used. Recruiters approach you directly. Highly recommended!"</p>
+            <div class="user-info">
+                <img src="{{ url_for('static', filename='images/user2.jpg') }}" alt="User">
+                <div>
+                    <h5>Priya Patel</h5>
+                    <p>Data Scientist at Amazon</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p>"As a recruiter, I found the best talent for our company. Great platform for hiring!"</p>
+            <div class="user-info">
+                <img src="{{ url_for('static', filename='images/user3.jpg') }}" alt="User">
+                <div>
+                    <h5>Amit Kumar</h5>
+                    <p>HR Manager at TCS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="cta-content">
+        <h2>Ready to Start Your Career Journey?</h2>
+        <p>Join millions of job seekers and find your perfect role</p>
+        <div class="cta-buttons">
+            <a href="{{ url_for('register') }}" class="cta-btn primary">Post a Job</a>
+            <a href="{{ url_for('register') }}" class="cta-btn secondary">Find a Job</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

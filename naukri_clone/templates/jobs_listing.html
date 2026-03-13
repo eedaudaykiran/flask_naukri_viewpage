@@ -1,0 +1,1196 @@
+{% extends "base.html" %}
+
+{% block title %}Jobs - Naukri Clone{% endblock %}
+
+{% block content %}
+<div class="jobs-container">
+    <!-- Page Header -->
+    <div class="jobs-header">
+        <h1>Browse <span>Jobs</span></h1>
+        <p>Find your dream job from thousands of opportunities</p>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <div class="filter-section">
+        <div class="filter-container">
+            <form action="{{ url_for('jobs_listing') }}" method="GET" class="filter-form">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <i class="fas fa-search"></i>
+                        <input type="text" name="search" placeholder="Job title, skills or company"
+                            class="filter-input">
+                    </div>
+                    <div class="filter-group">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" name="location" placeholder="Location" class="filter-input">
+                    </div>
+                    <button type="submit" class="filter-btn">Search Jobs</button>
+                </div>
+            </form>
+
+            <div class="filter-tabs">
+                <button class="tab-btn active" data-filter="all">All Jobs</button>
+                <button class="tab-btn" data-filter="fullstack">Full Stack</button>
+                <button class="tab-btn" data-filter="frontend">Frontend</button>
+                <button class="tab-btn" data-filter="python">Python</button>
+                <button class="tab-btn" data-filter="mern">MERN</button>
+                <button class="tab-btn" data-filter="react">React</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jobs Stats -->
+    <div class="jobs-stats">
+        <p>Showing <span id="showing-count">24</span> of <span>30+</span> jobs</p>
+    </div>
+
+    <!-- Jobs Grid -->
+    <div class="jobs-grid-container">
+        <div class="jobs-grid" id="jobsGrid">
+            <!-- Job Card 1 - Python Full Stack -->
+            <div class="job-card" data-category="fullstack python">
+                <div class="job-badge featured">Featured</div>
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>Senior Python Full Stack Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Tata Consultancy Services</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bangalore, Karnataka</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>5-8 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>18-25 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">Python</span>
+                    <span class="skill">Django</span>
+                    <span class="skill">React</span>
+                    <span class="skill">PostgreSQL</span>
+                    <span class="skill">AWS</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 2 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=1) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 2 - MERN Stack -->
+            <div class="job-card" data-category="fullstack mern">
+                <div class="job-badge hot">Hot Job</div>
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>MERN Stack Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Infosys</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Hyderabad, Telangana</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>3-6 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>12-20 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">MongoDB</span>
+                    <span class="skill">Express.js</span>
+                    <span class="skill">React</span>
+                    <span class="skill">Node.js</span>
+                    <span class="skill">Redux</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 1 day ago</p>
+                    <a href="{{ url_for('view_job', job_id=2) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 3 - Frontend Developer -->
+            <div class="job-card" data-category="frontend react">
+                <div class="job-badge new">New</div>
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>Senior Frontend Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Amazon</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Chennai, Tamil Nadu</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>4-7 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>15-25 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">React</span>
+                    <span class="skill">TypeScript</span>
+                    <span class="skill">Next.js</span>
+                    <span class="skill">Tailwind</span>
+                    <span class="skill">Redux</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 3 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=3) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 4 - Python Developer -->
+            <div class="job-card" data-category="python">
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>Python Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Google</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bangalore, Karnataka</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>2-5 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>20-30 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">Python</span>
+                    <span class="skill">Django</span>
+                    <span class="skill">Flask</span>
+                    <span class="skill">SQL</span>
+                    <span class="skill">Docker</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 5 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=4) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 5 - React Developer -->
+            <div class="job-card" data-category="frontend react">
+                <div class="job-badge urgent">Urgent</div>
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>React Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Microsoft</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Hyderabad, Telangana</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>3-6 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>18-28 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">React</span>
+                    <span class="skill">Redux</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">HTML5/CSS3</span>
+                    <span class="skill">Jest</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 1 week ago</p>
+                    <a href="{{ url_for('view_job', job_id=5) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 6 - Full Stack Java -->
+            <div class="job-card" data-category="fullstack">
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>Full Stack Java Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Wipro</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Pune, Maharashtra</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>4-8 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>14-22 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">Java</span>
+                    <span class="skill">Spring Boot</span>
+                    <span class="skill">Angular</span>
+                    <span class="skill">MySQL</span>
+                    <span class="skill">Microservices</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 2 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=6) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 7 - DevOps Engineer -->
+            <div class="job-card" data-category="devops">
+                <div class="job-badge featured">Featured</div>
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>DevOps Engineer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> IBM</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bangalore, Karnataka</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>3-7 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>15-24 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">Docker</span>
+                    <span class="skill">Kubernetes</span>
+                    <span class="skill">Jenkins</span>
+                    <span class="skill">AWS</span>
+                    <span class="skill">Terraform</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 3 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=7) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 8 - Data Scientist -->
+            <div class="job-card" data-category="data-science">
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>Data Scientist</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Flipkart</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bangalore, Karnataka</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>2-5 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>16-26 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">Python</span>
+                    <span class="skill">ML</span>
+                    <span class="skill">SQL</span>
+                    <span class="skill">TensorFlow</span>
+                    <span class="skill">Tableau</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 4 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=8) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 9 - Backend Developer -->
+            <div class="job-card" data-category="python">
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>Backend Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Uber</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bangalore, Karnataka</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>3-6 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>18-26 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">Node.js</span>
+                    <span class="skill">Python</span>
+                    <span class="skill">MongoDB</span>
+                    <span class="skill">Redis</span>
+                    <span class="skill">Kafka</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 2 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=9) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 10 - React Native Developer -->
+            <div class="job-card" data-category="react mobile">
+                <div class="job-badge hot">Hot Job</div>
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>React Native Developer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Swiggy</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Bangalore, Karnataka</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>2-5 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>12-20 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">React Native</span>
+                    <span class="skill">Redux</span>
+                    <span class="skill">JavaScript</span>
+                    <span class="skill">Firebase</span>
+                    <span class="skill">iOS/Android</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 3 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=10) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 11 - AWS Architect -->
+            <div class="job-card" data-category="devops cloud">
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>AWS Solutions Architect</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> AWS</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Hyderabad, Telangana</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>6-10 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>25-40 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">AWS</span>
+                    <span class="skill">CloudFormation</span>
+                    <span class="skill">Terraform</span>
+                    <span class="skill">Kubernetes</span>
+                    <span class="skill">Jenkins</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 1 week ago</p>
+                    <a href="{{ url_for('view_job', job_id=11) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+
+            <!-- Job Card 12 - UI/UX Designer -->
+            <div class="job-card" data-category="design">
+                <div class="job-header">
+                    <div class="job-title-company">
+                        <h3>UI/UX Designer</h3>
+                        <p class="company-name"><i class="fas fa-building"></i> Adobe</p>
+                    </div>
+                </div>
+                <div class="job-details">
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Noida, UP</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>3-7 years</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-rupee-sign"></i>
+                        <span>12-22 LPA</span>
+                    </div>
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Full Time</span>
+                    </div>
+                </div>
+                <div class="job-skills">
+                    <span class="skill">Figma</span>
+                    <span class="skill">Adobe XD</span>
+                    <span class="skill">Sketch</span>
+                    <span class="skill">Wireframing</span>
+                    <span class="skill">Prototyping</span>
+                </div>
+                <div class="job-footer">
+                    <p class="posted-date"><i class="far fa-clock"></i> Posted 4 days ago</p>
+                    <a href="{{ url_for('view_job', job_id=12) }}" class="apply-btn">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+        <button class="page-btn prev" id="prevPage" disabled><i class="fas fa-chevron-left"></i> Prev</button>
+        <button class="page-btn active" data-page="1">1</button>
+        <button class="page-btn" data-page="2">2</button>
+        <button class="page-btn" data-page="3">3</button>
+        <button class="page-btn" data-page="4">4</button>
+        <button class="page-btn" data-page="5">5</button>
+        <button class="page-btn next" id="nextPage">Next <i class="fas fa-chevron-right"></i></button>
+    </div>
+</div>
+
+<style>
+    /* Jobs Page Specific Styles */
+    .jobs-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* Header Styles */
+    .jobs-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .jobs-header h1 {
+        font-size: 42px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .jobs-header h1 span {
+        color: #667eea;
+        position: relative;
+    }
+
+    .jobs-header h1 span::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: linear-gradient(90deg, #667eea, #764ba2);
+        border-radius: 2px;
+    }
+
+    .jobs-header p {
+        color: #666;
+        font-size: 18px;
+    }
+
+    /* Filter Section */
+    .filter-section {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        margin-bottom: 30px;
+    }
+
+    .filter-form {
+        margin-bottom: 20px;
+    }
+
+    .filter-row {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 250px;
+        position: relative;
+    }
+
+    .filter-group i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        z-index: 1;
+    }
+
+    .filter-input {
+        width: 100%;
+        padding: 15px 15px 15px 45px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+        box-sizing: border-box;
+    }
+
+    .filter-input:focus {
+        border-color: #667eea;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .filter-btn {
+        padding: 15px 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-width: 150px;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .filter-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .filter-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .filter-tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 20px;
+    }
+
+    .tab-btn {
+        padding: 10px 20px;
+        background: white;
+        border: 2px solid #e0e0e0;
+        border-radius: 25px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #666;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .tab-btn:hover {
+        border-color: #667eea;
+        color: #667eea;
+    }
+
+    .tab-btn.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-color: transparent;
+        color: white;
+    }
+
+    /* Jobs Stats */
+    .jobs-stats {
+        margin-bottom: 20px;
+        padding: 0 5px;
+    }
+
+    .jobs-stats p {
+        color: #666;
+        font-size: 16px;
+    }
+
+    .jobs-stats span {
+        font-weight: 700;
+        color: #667eea;
+        font-size: 18px;
+    }
+
+    /* Jobs Grid */
+    .jobs-grid-container {
+        width: 100%;
+        overflow: visible;
+    }
+
+    .jobs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .job-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+        border: 1px solid #f0f0f0;
+        display: flex;
+        flex-direction: column;
+        height: fit-content;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+    }
+
+    .job-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        z-index: 2;
+    }
+
+    .job-badge.featured {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .job-badge.hot,
+    .job-badge.urgent {
+        background: #ff6b6b;
+        color: white;
+    }
+
+    .job-badge.new {
+        background: #4ecdc4;
+        color: white;
+    }
+
+    .job-header {
+        margin-bottom: 20px;
+        padding-right: 70px;
+        width: 100%;
+    }
+
+    .job-title-company {
+        width: 100%;
+    }
+
+    .job-title-company h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+        color: #333;
+        line-height: 1.4;
+        word-wrap: break-word;
+    }
+
+    .company-name {
+        color: #667eea;
+        font-size: 14px;
+        font-weight: 500;
+        margin: 0;
+        word-wrap: break-word;
+    }
+
+    .company-name i {
+        margin-right: 5px;
+        font-size: 12px;
+    }
+
+    .job-details {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #666;
+        font-size: 14px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .detail-item i {
+        color: #667eea;
+        width: 16px;
+        font-size: 14px;
+        flex-shrink: 0;
+    }
+
+    .detail-item span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .job-skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+        min-height: 70px;
+    }
+
+    .skill {
+        padding: 5px 12px;
+        background: #f0f0f0;
+        border-radius: 20px;
+        font-size: 12px;
+        color: #666;
+        transition: all 0.3s ease;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    .skill:hover {
+        background: #667eea;
+        color: white;
+    }
+
+    .job-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 20px;
+        margin-top: auto;
+    }
+
+    .posted-date {
+        color: #999;
+        font-size: 13px;
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .posted-date i {
+        margin-right: 5px;
+    }
+
+    .apply-btn {
+        padding: 8px 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+        display: inline-block;
+        border: none;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .apply-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Pagination */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+    }
+
+    .page-btn {
+        padding: 10px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        color: #666;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        min-width: 45px;
+        text-align: center;
+        background: white;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 14px;
+    }
+
+    .page-btn:hover:not(:disabled) {
+        border-color: #667eea;
+        color: #667eea;
+    }
+
+    .page-btn.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-color: transparent;
+        color: white;
+    }
+
+    .page-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .page-btn.prev,
+    .page-btn.next {
+        padding: 10px 20px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .jobs-header h1 {
+            font-size: 32px;
+        }
+
+        .filter-row {
+            flex-direction: column;
+        }
+
+        .filter-btn {
+            width: 100%;
+        }
+
+        .jobs-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .job-details {
+            grid-template-columns: 1fr;
+        }
+
+        .pagination {
+            gap: 5px;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            min-width: 40px;
+        }
+
+        .page-btn.prev,
+        .page-btn.next {
+            padding: 8px 15px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .jobs-container {
+            padding: 20px 15px;
+        }
+
+        .jobs-header h1 {
+            font-size: 28px;
+        }
+
+        .jobs-header p {
+            font-size: 16px;
+        }
+
+        .filter-section {
+            padding: 20px;
+        }
+
+        .filter-tabs {
+            gap: 8px;
+        }
+
+        .tab-btn {
+            padding: 8px 15px;
+            font-size: 13px;
+        }
+
+        .job-card {
+            padding: 20px;
+        }
+
+        .job-header {
+            padding-right: 50px;
+        }
+
+        .job-title-company h3 {
+            font-size: 16px;
+        }
+
+        .job-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+        }
+
+        .job-footer {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .apply-btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .pagination {
+            justify-content: center;
+        }
+    }
+
+    /* Hidden class for pagination */
+    .job-card.hidden {
+        display: none;
+    }
+</style>
+
+<script>
+    // Filter and Pagination functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const jobCards = document.querySelectorAll('.job-card');
+        const pageBtns = document.querySelectorAll('.page-btn[data-page]');
+        const prevBtn = document.getElementById('prevPage');
+        const nextBtn = document.getElementById('nextPage');
+        const showingCount = document.getElementById('showing-count');
+
+        let currentPage = 1;
+        let currentFilter = 'all';
+        const jobsPerPage = 8;
+
+        // Filter functionality
+        function filterJobs() {
+            let visibleCount = 0;
+
+            jobCards.forEach(card => {
+                if (currentFilter === 'all') {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    const categories = card.getAttribute('data-category');
+                    if (categories && categories.includes(currentFilter)) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Update showing count
+            if (showingCount) {
+                showingCount.textContent = visibleCount;
+            }
+
+            // Reset to page 1 after filter
+            currentPage = 1;
+            showPage(currentPage);
+            updatePaginationButtons();
+        }
+
+        // Tab click handlers
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                // Remove active class from all buttons
+                tabBtns.forEach(b => b.classList.remove('active'));
+
+                // Add active class to clicked button
+                this.classList.add('active');
+
+                // Get filter value
+                currentFilter = this.getAttribute('data-filter');
+
+                // Filter jobs
+                filterJobs();
+            });
+        });
+
+        // Pagination functions
+        function showPage(page) {
+            const visibleCards = Array.from(jobCards).filter(card => !card.classList.contains('hidden'));
+            const totalPages = Math.ceil(visibleCards.length / jobsPerPage);
+
+            // Hide all cards first
+            jobCards.forEach(card => {
+                card.classList.add('hidden');
+            });
+
+            // Show only cards for current page
+            const start = (page - 1) * jobsPerPage;
+            const end = start + jobsPerPage;
+
+            visibleCards.forEach((card, index) => {
+                if (index >= start && index < end) {
+                    card.classList.remove('hidden');
+                }
+            });
+
+            // Update active page button
+            pageBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (parseInt(btn.getAttribute('data-page')) === page) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update prev/next buttons
+            if (prevBtn) {
+                prevBtn.disabled = page === 1;
+            }
+            if (nextBtn) {
+                nextBtn.disabled = page === totalPages || totalPages === 0;
+            }
+        }
+
+        function updatePaginationButtons() {
+            const visibleCards = Array.from(jobCards).filter(card => !card.classList.contains('hidden'));
+            const totalPages = Math.ceil(visibleCards.length / jobsPerPage);
+
+            // Show/hide page buttons based on total pages
+            pageBtns.forEach(btn => {
+                const pageNum = parseInt(btn.getAttribute('data-page'));
+                if (pageNum <= totalPages) {
+                    btn.style.display = 'inline-block';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+
+            // Show current page
+            showPage(currentPage);
+        }
+
+        // Page button click handlers
+        pageBtns.forEach(btn => {
+            btn.addEventListener('click', function () {
+                const page = parseInt(this.getAttribute('data-page'));
+                currentPage = page;
+                showPage(currentPage);
+            });
+        });
+
+        // Previous button handler
+        if (prevBtn) {
+            prevBtn.addEventListener('click', function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                }
+            });
+        }
+
+        // Next button handler
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function () {
+                const visibleCards = Array.from(jobCards).filter(card => !card.classList.contains('hidden'));
+                const totalPages = Math.ceil(visibleCards.length / jobsPerPage);
+
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    showPage(currentPage);
+                }
+            });
+        }
+
+        // Initialize
+        filterJobs();
+    });
+</script>
+{% endblock %}

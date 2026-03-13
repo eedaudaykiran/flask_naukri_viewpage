@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Naukri Clone{% endblock %}</title>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="{{ url_for('index') }}">
+                    <i class="fas fa-briefcase"></i> Naukri<span>Clone</span>
+                </a>
+            </div>
+
+            <!-- UPDATED NAVIGATION MENU -->
+            <ul class="nav-menu">
+                <li><a href="{{ url_for('index') }}"
+                        class="{{ 'active' if request.endpoint == 'index' else '' }}">Home</a></li>
+                <li><a href="{{ url_for('jobs_listing') }}"
+                        class="{{ 'active' if request.endpoint == 'jobs_listing' else '' }}">Jobs</a></li>
+                <li><a href="{{ url_for('companies') }}"
+                        class="{{ 'active' if request.endpoint == 'companies' else '' }}">Companies</a></li>
+                <li><a href="{{ url_for('services') }}"
+                        class="{{ 'active' if request.endpoint == 'services' else '' }}">Services</a></li>
+                <li><a href="{{ url_for('contact') }}"
+                        class="{{ 'active' if request.endpoint == 'contact' else '' }}">Contact</a></li>
+            </ul>
+            <!-- END OF UPDATED NAVIGATION MENU -->
+
+            <div class="nav-buttons">
+                {% if current_user.is_authenticated %}
+                <div class="user-dropdown">
+                    <button class="user-btn">
+                        <i class="fas fa-user-circle"></i> {{ current_user.username }}
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('view_profile') }}"><i class="fas fa-user"></i> Profile</a>
+                        <a href="{{ url_for('change_password') }}"><i class="fas fa-key"></i> Change Password</a>
+                        <a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+                {% else %}
+                <a href="{{ url_for('login') }}" class="btn-login">Login</a>
+                <a href="{{ url_for('register') }}" class="btn-register">Register</a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">
+            {{ message }}
+            <button class="close-btn" onclick="this.parentElement.remove()">×</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fas fa-briefcase"></i> Naukri<span>Clone</span></h3>
+                <p>India's most trusted job portal. Find your dream job today!</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>For Job Seekers</h4>
+                <ul>
+                    <li><a href="#">Create Resume</a></li>
+                    <li><a href="#">Job Alerts</a></li>
+                    <li><a href="#">Career Advice</a></li>
+                    <li><a href="#">Interview Tips</a></li>
+                    <li><a href="#">Company Reviews</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>For Employers</h4>
+                <ul>
+                    <li><a href="#">Post a Job</a></li>
+                    <li><a href="#">Search Resumes</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Recruitment Solutions</a></li>
+                    <li><a href="#">Employer Login</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Naukri Clone. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+
+</html>

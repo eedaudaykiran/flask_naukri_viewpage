@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Server Error - Naukri Clone{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 100px 20px; min-height: 60vh;">
+    <h1 style="font-size: 72px; color: #dc3545; margin-bottom: 20px;">500</h1>
+    <h2 style="margin-bottom: 20px;">Internal Server Error</h2>
+    <p style="color: #666; margin-bottom: 30px;">Something went wrong. Please try again later.</p>
+    <a href="{{ url_for('index') }}"
+        style="background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px;">Go
+        Home</a>
+</div>
+{% endblock %}

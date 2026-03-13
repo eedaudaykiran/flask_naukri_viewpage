@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - Naukri Clone{% endblock %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 60px auto; padding: 0 20px; min-height: 60vh;">
+    <h1 style="font-size: 36px; color: #333; margin-bottom: 20px;">Search Results</h1>
+
+    {% if skills or location %}
+    <p style="color: #666; margin-bottom: 30px;">Searching for: <strong>{{ skills }} {{ location }}</strong></p>
+    {% endif %}
+
+    <div style="text-align: center; padding: 60px 20px; background: #f8f9fa; border-radius: 10px;">
+        <i class="fas fa-search" style="font-size: 48px; color: #ccc; margin-bottom: 20px;"></i>
+        <h3 style="margin-bottom: 10px;">No results found</h3>
+        <p style="color: #666;">Try different keywords or browse all jobs</p>
+        <a href="{{ url_for('jobs_listing') }}"
+            style="display: inline-block; margin-top: 20px; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px;">Browse
+            All Jobs</a>
+    </div>
+</div>
+{% endblock %}
