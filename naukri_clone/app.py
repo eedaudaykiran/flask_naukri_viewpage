@@ -1,19 +1,19 @@
 from flask import Flask, render_template, redirect, url_for, flash, request, session, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from datetime import datetime, timedelta
-from flask_login import LoginManager
 import os
 from werkzeug.security import generate_password_hash
 import random
 
-from config import Config
-from models import db, User, JobSeekerProfile, RecruiterProfile, Job, JobApplication, OTPVerification, BlockedCompany
-from forms import (
+# Import from naukri_clone package
+from naukri_clone.config import Config
+from naukri_clone.models import db, User, JobSeekerProfile, RecruiterProfile, Job, JobApplication, OTPVerification, BlockedCompany
+from naukri_clone.forms import (
     RegistrationForm, LoginForm, JobSeekerProfileForm, ResumeUploadForm,
     PhotoUploadForm, PostJobForm, ChangePasswordForm, ForgotPasswordForm,
     OTPVerificationForm, ResetPasswordForm, BlockCompanyForm
 )
-from utils import (
+from naukri_clone.utils import (
     generate_otp, validate_password_strength, calculate_profile_completion,
     save_uploaded_file, get_profile_visibility_message, check_password_expiry_notification
 )
@@ -755,7 +755,7 @@ def internal_error(error):
     return render_template('500.html'), 500
 
 # ======================
-# NEW ADDED ROUTES - ADD THESE AT THE BOTTOM
+# STATIC PAGES ROUTES
 # ======================
 
 # Job listing page with 30 jobs
